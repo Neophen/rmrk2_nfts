@@ -1,9 +1,9 @@
 <script setup name="BasePart" lang="ts">
-import { IBasePart } from 'rmrk-tools/dist/classes/base';
+import { NftPart } from '../types';
 
-const props = defineProps<{ part: IBasePart }>();
+const props = defineProps<{ part: NftPart }>();
 const emit = defineEmits<{
-  (event: 'update:part', part: IBasePart): void;
+  (event: 'update:part', part: NftPart): void;
   (event: 'delete'): void;
 }>();
 
@@ -35,14 +35,14 @@ const onFileChange = (event: Event) => {
 
 watch(
   () => myPart.value,
-  (part: IBasePart) => {
+  (part: NftPart) => {
     console.log('part changed');
     emit('update:part', part);
   }
 );
 watch(
   () => props.part,
-  (part: IBasePart) => {
+  (part: NftPart) => {
     myPart.value = part;
   }
 );
@@ -55,12 +55,12 @@ watch(
 // src?: string;
 </script>
 <template>
-  <div class="border shadow rounded-md p-2 space-y-2">
-    <div class="bg-pink-500 flex items-center rounded-md p-1">
+  <div class="p-2 space-y-2 border rounded-md shadow">
+    <div class="flex items-center p-1 bg-pink-500 rounded-md">
       <button
         type="button"
         @click="setType('fixed')"
-        class="rounded-md text-center flex-1 py-1"
+        class="flex-1 py-1 text-center rounded-md"
         :class="{
           'bg-white text-pink-500 hover:bg-pink-50': myPart.type === 'fixed',
           'bg-pink-500 text-white hover:bg-pink-600': myPart.type !== 'fixed',
@@ -71,7 +71,7 @@ watch(
       <button
         type="button"
         @click="setType('slot')"
-        class="rounded-md text-center flex-1 py-1"
+        class="flex-1 py-1 text-center rounded-md"
         :class="{
           'bg-white text-pink-500 hover:bg-pink-50': myPart.type === 'slot',
           'bg-pink-500 text-white hover:bg-pink-600': myPart.type !== 'slot',
@@ -81,49 +81,49 @@ watch(
       </button>
     </div>
     <div>
-      <label for="id" class="block uppercase text-gray-500 text-xs">ID</label>
+      <label for="id" class="block text-xs text-gray-500 uppercase">ID</label>
       <input
         type="text"
         name="id"
         id="id"
-        class="block rounded-md px-2 py-1 border border-pink-500 w-full"
+        class="block w-full px-2 py-1 border border-pink-500 rounded-md"
         v-model="myPart.id"
       />
     </div>
     <div>
-      <label for="preview" class="block uppercase text-gray-500 text-xs"
+      <label for="preview" class="block text-xs text-gray-500 uppercase"
         >preview</label
       >
       <input
         type="file"
         name="preview"
         id="preview"
-        class="block rounded-md px-2 py-1 border border-pink-500 w-full"
+        class="block w-full px-2 py-1 border border-pink-500 rounded-md"
         @change="onFileChange"
         accept="image/svg"
       />
     </div>
     <div>
-      <label for="src" class="block uppercase text-gray-500 text-xs">src</label>
+      <label for="src" class="block text-xs text-gray-500 uppercase">src</label>
       <input
         type="text"
         name="src"
         id="src"
-        class="block rounded-md px-2 py-1 border border-pink-500 w-full"
+        class="block w-full px-2 py-1 border border-pink-500 rounded-md"
         v-model="myPart.src"
       />
     </div>
     <div class="flex items-center space-x-4">
       <button
         type="button"
-        class="w-full py-1 rounded-md border border-pink-500 hover:bg-pink-100"
+        class="w-full py-1 border border-pink-500 rounded-md hover:bg-pink-100"
         @click="onLock"
       >
         Lock
       </button>
       <button
         type="button"
-        class="w-full py-1 rounded-md border border-pink-500 hover:bg-pink-100"
+        class="w-full py-1 border border-pink-500 rounded-md hover:bg-pink-100"
         @click="onDelete"
       >
         Delete

@@ -1,7 +1,7 @@
 <script setup name="BasePartItem" lang="ts">
-import { IBasePart } from 'rmrk-tools/dist/classes/base';
+import { NftPart } from '../types';
 
-const props = defineProps<{ part: IBasePart }>();
+const props = defineProps<{ part: NftPart }>();
 const emit = defineEmits<{
   (event: 'select'): void;
   (event: 'delete'): void;
@@ -15,21 +15,21 @@ const onSelect = () => {
 };
 </script>
 <template>
-  <div class="border shadow rounded-md p-2 space-y-2">
+  <div class="p-2 space-y-2 border rounded-md shadow">
     <p>
       {{ part.id }}
     </p>
     <div class="flex items-center space-x-4">
       <button
         type="button"
-        class="w-full py-1 rounded-md border border-pink-500 hover:bg-pink-100"
+        class="w-full py-1 border border-pink-500 rounded-md hover:bg-pink-100"
         @click="onSelect"
       >
         Select
       </button>
       <button
         type="button"
-        class="w-full py-1 rounded-md border border-pink-500 hover:bg-pink-100"
+        class="w-full py-1 border border-pink-500 rounded-md hover:bg-pink-100"
         @click="onDelete"
       >
         Delete
