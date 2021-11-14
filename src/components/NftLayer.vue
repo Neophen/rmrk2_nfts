@@ -1,7 +1,7 @@
-<script setup name="BasePartItem" lang="ts">
-import { NftPart } from '../types';
+<script setup name="NftLayer" lang="ts">
+import { BasePart } from '../types';
 
-const props = defineProps<{ part: NftPart }>();
+const props = defineProps<{ part: BasePart }>();
 const emit = defineEmits<{
   (event: 'select'): void;
   (event: 'delete'): void;

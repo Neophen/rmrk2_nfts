@@ -7,7 +7,7 @@ export interface IBasePart {
   src?: string;
 }
 
-export interface NftPart extends IBasePart {
+export interface BasePart extends IBasePart {
   key: string;
   preview?: string;
 }
