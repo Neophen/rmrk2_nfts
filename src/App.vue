@@ -25,9 +25,12 @@ const addPart = (part: BasePart) => {
   <div class="p-8">
     <h1 class="text-2xl font-bold text-center">Let's create an NFT</h1>
     <div class="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2 lg:grid-cols-3">
-      <div class="">
+      <div class="space-y-4">
         <BaseHeading>Parts</BaseHeading>
         <div class="space-y-4">
+          <BaseCard v-if="parts.length === 0">
+            <p>You've not added any layers yet</p>
+          </BaseCard>
           <NftLayer
             v-for="(part, i) in parts"
             :key="part.key"
@@ -35,17 +38,18 @@ const addPart = (part: BasePart) => {
             @select="selectedPart = part"
             @delete="parts.splice(i, 1)"
           />
+
           <NftCreateLayer @create="addPart" />
         </div>
       </div>
-      <div class="">
-        <BaseHeading>Settings</BaseHeading>
+      <div class="space-y-4">
+        <BaseHeading>Layer Settings</BaseHeading>
         <BaseCard>
-          <p v-if="!selectedPart">Please select a part</p>
+          <p v-if="!selectedPart">Please select a layer</p>
           <NftLayerSettings v-else v-model:part="selectedPart" />
         </BaseCard>
       </div>
-      <div class="">
+      <div class="space-y-4">
         <BaseHeading>Preview</BaseHeading>
         <BaseCard>
           <svg
