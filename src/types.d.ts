@@ -11,3 +11,8 @@ export interface BasePart extends IBasePart {
   key: string;
   preview?: string;
 }
+
+export enum ICONS {
+  trash = 'trash',
+  drag = 'drag',
+}

@@ -1,8 +1,8 @@
 <script setup name="NftLayerSettings" lang="ts">
 import { BasePart } from '../types';
+
 import BaseFieldText from './BaseFieldText.vue';
 import BaseFieldFile from './BaseFieldFile.vue';
-import BaseButton from './BaseButton.vue';
 import BaseFieldGroupSelect from './BaseFieldGroupSelect.vue';
 
 const props = defineProps<{ part: BasePart }>();
@@ -25,7 +25,6 @@ const onFileChange = (files: FileList) => {
 watch(
   () => layer.value,
   (part: BasePart) => {
-    console.log('part changed');
     emit('update:part', part);
   }
 );
@@ -39,7 +38,7 @@ watch(
 <template>
   <div class="space-y-2">
     <BaseFieldGroupSelect v-model="layer.type" :options="['fixed', 'slot']" />
-    <BaseFieldText id="id" v-model="layer.id" label="Layer name" />
+    <BaseFieldText id="id" v-model.snake.lower.trim="layer.id" label="Layer name" />
     <BaseFieldFile
       id="preview"
       label="Preview"

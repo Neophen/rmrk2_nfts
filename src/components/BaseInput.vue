@@ -1,4 +1,6 @@
 <script setup lang="ts" name="BaseInput">
+import { useVModel } from '../features/useVModel';
+
 const props = defineProps<{
   id: string;
   modelValue?: unknown;
@@ -8,14 +10,7 @@ const emit = defineEmits<{
   (event: 'update:modelValue', value: unknown): void;
 }>();
 
-const value = ref(props.modelValue);
-
-watch(
-  () => props.modelValue,
-  (value) => {
-    emit('update:modelValue', value);
-  }
-);
+const value = useVModel(props, emit);
 </script>
 <template>
   <input

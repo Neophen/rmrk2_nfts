@@ -1,7 +1,8 @@
 <script setup name="NftLayer" lang="ts">
 import { BasePart } from '../types';
+import IconButton from './IconButton.vue';
 
-const props = defineProps<{ part: BasePart }>();
+defineProps<{ part: BasePart }>();
 const emit = defineEmits<{
   (event: 'select'): void;
   (event: 'delete'): void;
@@ -15,25 +16,17 @@ const onSelect = () => {
 };
 </script>
 <template>
-  <div class="p-2 space-y-2 border rounded-md shadow">
-    <p>
+  <div
+    class="relative flex items-center p-2 border rounded-md shadow hover:bg-pink-50"
+  >
+    <button
+      @click="onSelect"
+      class="absolute inset-0 z-0 w-full h-full"
+    ></button>
+    <IconButton class="z-10" icon="trash" @click="onDelete" />
+    <p class="ml-2 mr-auto">
       {{ part.id }}
     </p>
-    <div class="flex items-center space-x-4">
-      <button
-        type="button"
-        class="w-full py-1 border border-pink-500 rounded-md hover:bg-pink-100"
-        @click="onSelect"
-      >
-        Select
-      </button>
-      <button
-        type="button"
-        class="w-full py-1 border border-pink-500 rounded-md hover:bg-pink-100"
-        @click="onDelete"
-      >
-        Delete
-      </button>
-    </div>
+    <IconButton class="z-10 drag-handle" icon="drag" />
   </div>
 </template>
