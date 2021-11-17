@@ -1,4 +1,4 @@
-<script setup lang="ts" name="NftCreateLayer">
+<script setup lang="ts" name="NftLayerCreate">
 import { BasePart } from '../types';
 import BaseButton from './BaseButton.vue';
 import BaseModal from './BaseModal.vue';
@@ -39,12 +39,16 @@ const onCreate = () => {
   <div>
     <BaseButton @click="showModal = true">Add layer</BaseButton>
     <BaseModal :show="showModal">
-      <div class="flex items-center">
-        <BaseHeading class="flex-shrink-0 mr-auto">Create a layer</BaseHeading>
-        <BaseButton @click="showModal = false">Close</BaseButton>
+      <div class="space-y-4">
+        <div class="flex items-center">
+          <BaseHeading class="flex-shrink-0 mr-auto"
+            >Create a layer</BaseHeading
+          >
+          <BaseButton @click="showModal = false">Close</BaseButton>
+        </div>
+        <NftLayerSettings v-model:part="part" />
+        <BaseButton @click="onCreate">Add</BaseButton>
       </div>
-      <NftLayerSettings v-model:part="part" />
-      <BaseButton @click="onCreate">Add</BaseButton>
     </BaseModal>
   </div>
 </template>

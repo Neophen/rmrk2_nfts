@@ -16,3 +16,10 @@ export enum ICONS {
   trash = 'trash',
   drag = 'drag',
 }
+
+export interface BaseSettings {
+    name: string;
+    description?: string;
+    width: number;
+    height: number;
+}
