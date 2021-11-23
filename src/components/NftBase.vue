@@ -11,12 +11,19 @@ import BaseHeading from './BaseHeading.vue';
 
 const props = defineProps<{
   settings: BaseSettings;
+  ipfs: unknown;
+  modelValue: BasePart[] | null;
+}>();
+
+const emit = defineEmits<{
+  (event: 'update:modelValue', payload: BasePart[]): void;
 }>();
 
 const viewBox = computed(() => {
   const { width, height } = props.settings;
   return `0 0 ${width} ${height}`;
 });
+
 const parts = ref<BasePart[]>([]);
 const selectedPartKey = ref<string | null>(null);
 
@@ -49,6 +56,14 @@ const addPart = (part: BasePart) => {
 
   selectedPartKey.value = part.key;
 };
+
+watch(
+  parts,
+  () => {
+    emit('update:modelValue', parts.value);
+  },
+  { immediate: true, deep: true }
+);
 </script>
 
 <template>
@@ -69,13 +84,14 @@ const addPart = (part: BasePart) => {
           <template #item="{ element }">
             <NftLayer
               :part="element"
+              :active="element.key === selectedPartKey"
               @select="onSelectLayer(element.key)"
               @delete="onRemoveLayer(element.key)"
             />
           </template>
         </Draggable>
 
-        <NftLayerCreate @create="addPart" />
+        <NftLayerCreate @create="addPart" :count="parts.length" :ipfs="ipfs" />
       </div>
     </div>
     <div class="space-y-4">

@@ -4,25 +4,31 @@
   "scripts": {
     "serve": "vite --open",
     "build": "vite build",
+    "build:ipfs": "esbuild ./node_modules/ipfs-core --bundle --format=esm --sourcemap --main-fields=browser,module,main --inject:./src/node-globals.js --define:process.env.NODE_ENV='\"production\"' --splitting --outdir=./src/modules/ipfs-core",
     "tsc": "vue-tsc --noEmit",
     "preview": "vite build && vite preview --open"
   },
   "dependencies": {
     "@pinata/sdk": "^1.1.23",
-    "@polkadot/api": "^6.9.1",
-    "@polkadot/keyring": "^7.9.1",
-    "@polkadot/util-crypto": "^7.9.1",
+    "@polkadot/api": "^6.9.2",
+    "@polkadot/keyring": "^7.9.2",
+    "@polkadot/util-crypto": "^7.9.2",
+    "ipfs-core": "^0.12.1",
+    "it-all": "^1.0.6",
+    "process": "^0.11.10",
     "rmrk-tools": "^2.0.25",
+    "util": "^0.12.4",
     "vue": "^3.2.22",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.9.4",
+    "@vitejs/plugin-vue": "^1.10.0",
     "autoprefixer": "^10.4.0",
+    "esbuild": "^0.13.15",
     "postcss": "^8.3.11",
     "tailwindcss": "^2.2.19",
     "typescript": "^4.5.2",
-    "unplugin-auto-import": "^0.4.14",
+    "unplugin-auto-import": "^0.4.16",
     "vite": "^2.6.14",
     "vue-tsc": "^0.3.0"
   }

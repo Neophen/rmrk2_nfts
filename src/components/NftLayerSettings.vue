@@ -45,6 +45,6 @@ watch(
       @change="onFileChange"
       accept="image/svg"
     />
-    <BaseFieldText id="src" v-model="layer.src" label="Pinata folder URL" />
+    <BaseFieldText id="folderCID" v-model="layer.folderCID" label="Pinata folder CID" />
   </div>
 </template>

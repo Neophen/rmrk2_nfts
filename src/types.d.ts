@@ -9,7 +9,9 @@ export interface IBasePart {
 
 export interface BasePart extends IBasePart {
   key: string;
+  folderCID?: string;
   preview?: string;
+  parts?: IBasePart[];
 }
 
 export enum ICONS {
@@ -18,8 +20,8 @@ export enum ICONS {
 }
 
 export interface BaseSettings {
-    name: string;
-    description?: string;
-    width: number;
-    height: number;
+  name: string;
+  description?: string;
+  width: number;
+  height: number;
 }
