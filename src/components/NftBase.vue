@@ -3,7 +3,7 @@ import { BasePart, BaseSettings } from '../types';
 
 import Draggable from 'vuedraggable';
 import NftLayer from './NftLayer.vue';
-import NftLayerSettings from './NftLayerSettings.vue';
+import NftLayerFixedSettings from './NftLayerFixedSettings.vue';
 import InlineSvg from './InlineSvg.vue';
 import NftLayerCreate from './NftLayerCreate.vue';
 import BaseCard from './BaseCard.vue';
@@ -29,6 +29,11 @@ const selectedPartKey = ref<string | null>(null);
 
 const selectedPartIndex = computed(() => {
   return parts.value.findIndex((part) => part.key === selectedPartKey.value);
+});
+
+const isSlot = computed(() => {
+  const part = parts.value.find((part) => part.key === selectedPartKey.value);
+  return part?.type === 'slot';
 });
 
 const onSelectLayer = (key: string) => {
@@ -98,7 +103,7 @@ watch(
       <BaseHeading>Layer Settings</BaseHeading>
       <BaseCard>
         <p v-if="!selectedPartKey">Please select a layer</p>
-        <NftLayerSettings
+        <NftLayerFixedSettings
           v-else
           :key="selectedPartKey"
           v-model:part="parts[selectedPartIndex]"
@@ -116,9 +121,9 @@ watch(
           <InlineSvg
             v-for="(part, i) in parts"
             :key="part.key"
-            :svg="part.preview"
+            :src="part.preview"
             :style="`z-index: ${i}; opacity: ${
-              selectedPartKey == null
+              selectedPartKey == null || isSlot
                 ? '1'
                 : part.key === selectedPartKey
                 ? '1'

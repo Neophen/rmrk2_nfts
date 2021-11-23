@@ -53,6 +53,7 @@ const createParts = async (source: string) => {
       return {
         id: `${id}_${index}`,
         src: `ipfs://ipfs/${file.path}`,
+        name: file.name.replace('.svg', ''),
         type,
         z,
       };

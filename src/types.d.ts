@@ -5,6 +5,7 @@ export interface IBasePart {
   unequip?: 'unequip' | 'burn';
   z?: number;
   src?: string;
+  name?: string;
 }
 
 export interface BasePart extends IBasePart {
