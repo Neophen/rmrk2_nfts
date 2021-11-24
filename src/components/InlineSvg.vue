@@ -235,37 +235,22 @@ export default {
      * @returns {Promise<Element>}
      */
     async download(url) {
-      return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.open('GET', url, true);
+      try {
+        const response = await fetch(url);
 
-        request.onload = () => {
-          if (request.status >= 200 && request.status < 400) {
-            try {
-              // Setup a parser to convert the response to text/xml in order for it to be manipulated and changed
-              const parser = new DOMParser();
-              const result = parser.parseFromString(
-                request.responseText,
-                'text/xml'
-              );
-              let svgEl = result.getElementsByTagName('svg')[0];
-              if (svgEl) {
-                // svgEl = this.transformSource(svgEl);
-                resolve(svgEl);
-              } else {
-                reject(new Error('Loaded file is not valid SVG"'));
-              }
-            } catch (e) {
-              reject(e);
-            }
-          } else {
-            reject(new Error('Error loading SVG'));
-          }
-        };
+        // Setup a parser to convert the response to text/xml in order for it to be manipulated and changed
+        const text = await response.text();
+        const parser = new DOMParser();
+        const result = parser.parseFromString(text, 'text/xml');
 
-        request.onerror = reject;
-        request.send();
-      });
+        let svgEl = result.getElementsByTagName('svg')[0];
+        if (!svgEl) {
+          throw new Error('Loaded file is not valid SVG');
+        }
+        return svgEl;
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };

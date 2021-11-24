@@ -12,7 +12,7 @@ import BaseHeading from './BaseHeading.vue';
 const props = defineProps<{
   settings: BaseSettings;
   ipfs: unknown;
-  modelValue: BasePart[] | null;
+  modelValue?: BasePart[];
 }>();
 
 const emit = defineEmits<{
@@ -24,7 +24,7 @@ const viewBox = computed(() => {
   return `0 0 ${width} ${height}`;
 });
 
-const parts = ref<BasePart[]>([]);
+const parts = ref<BasePart[]>(props.modelValue || []);
 const selectedPartKey = ref<string | null>(null);
 
 const selectedPartIndex = computed(() => {
